@@ -1,0 +1,18 @@
+@import 'tailwindcss';
+
+@font-face { font-family: 'EB Garamond'; font-weight: 400; font-style: normal; src: url('https://static.figma.com/font/EBGaramond_wght__1') format('woff2'); }
+@font-face { font-family: 'Montserrat'; font-weight: 400; font-style: normal; src: url('https://static.figma.com/font/Montserrat_wght__2') format('woff2'); }
+@font-face { font-family: 'Roboto'; font-weight: 400; font-style: normal; src: url('https://static.figma.com/font/Roboto_wdth_wght__3') format('woff2'); }
+@font-face { font-family: 'The Nautigal'; font-weight: 400; font-style: normal; src: url('https://static.figma.com/font/TheNautigal-Regular_1') format('woff2'); }
+
+@theme {
+  --color-cream: #faf3e8;
+  --color-rose: #996247;
+  --font-serif-tnr: 'Times New Roman', Times, serif;
+  --font-script: 'The Nautigal', cursive;
+  --font-garamond: 'EB Garamond', serif;
+  --font-roboto: 'Roboto', sans-serif;
+  --font-sans-google: 'Google Sans Text', 'Roboto', sans-serif;
+}
+
+body { background: var(--color-cream); font-family: var(--font-serif-tnr); color: var(--color-rose); }

@@ -1,0 +1,14 @@
+{
+  "title": "Anudi & Ishara Wedding",
+  "description": "Wedding RSVP and Information site for Anudi & Ishara.",
+  "robots": {
+    "index": false
+  },
+  "icons": {
+    "icon": "/favicon.ico"
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
