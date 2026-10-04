@@ -46,16 +46,16 @@ function Calendar() {
   )
 }
 
-export default function Reception() {
+export default function Reception({ hash }: { hash?: string }) {
   const countdown = useCountdown()
   const [isModalOpen, setIsModalOpen] = useState(false)
   return (
     <section className="flex flex-col items-center gap-5 px-6">
-      <Heading>Reception Info</Heading>
+      <Heading>THE WEDDING WILL TAKE PLACE AT:</Heading>
       <p className="text-center text-[18px] uppercase tracking-[1.3px] sm:text-[26px] sm:leading-[39px]">
-        The reception will take place at:
+        Vinrich Lake Resort, Piliyandala
       </p>
-      <p className="text-[30px] leading-[45px]">7:00 PM</p>
+      <p className="text-[30px] leading-[45px]">6:30 PM</p>
       <div className="flex items-center gap-6 text-base uppercase">
         <span className="text-right">Thursday</span>
         <span className="h-8 w-0.5 bg-rose" />
@@ -78,7 +78,7 @@ export default function Reception() {
       >
         CONFIRM ATTENDANCE
       </button>
-      <RsvpModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <RsvpModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} hash={hash} />
     </section>
   )
 }

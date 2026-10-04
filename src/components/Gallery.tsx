@@ -26,7 +26,7 @@ export default function Gallery() {
   
   return (
     <section className="flex w-full flex-col items-center py-10 sm:py-16">
-      <h2 className="mb-6 sm:mb-10 text-sm sm:text-base font-medium tracking-[0.1em] text-rose/80 uppercase">Photo Gallery</h2>
+      <h2 className="mb-6 sm:mb-10 text-sm sm:text-base font-medium tracking-[0.1em] text-rose/80 uppercase">Memories</h2>
       <div className="w-full max-w-5xl px-4 sm:px-8 lg:px-12">
         <div 
           className="group relative h-[55vh] min-h-[350px] max-h-[600px] w-full overflow-hidden rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl ring-1 ring-black/5 bg-black/5"

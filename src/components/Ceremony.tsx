@@ -1,8 +1,8 @@
 import Heading from './Heading'
 
 const parents = [
-  ['Muditha Karunamuni', 'Narmada Jayasinhe'],
-  ['Kamburugamuwa Yaddehige Gunapala', 'Ashoka Perera'],
+  ['Muditha Karunamuni', 'Narmada Jayasinghe'],
+  ['K Y Gunapala', 'Asoka Perera'],
 ]
 
 export default function Ceremony() {

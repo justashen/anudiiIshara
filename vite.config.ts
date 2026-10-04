@@ -2,8 +2,11 @@ import { defineConfig, type HtmlTagDescriptor, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
+import { config as dotenvConfig } from 'dotenv'
 
-import siteConfiguration from './.figma/make/site.json'
+dotenvConfig()
+
+import siteConfiguration from './.figma/make/site.json' assert { type: 'json' }
 
 
 // Vite config — https://vitejs.dev/config/
@@ -27,7 +30,7 @@ react(),
     ],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        '@': path.resolve(import.meta.dirname, './src'),
       },
     },
     server: {

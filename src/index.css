@@ -16,3 +16,7 @@
 }
 
 body { background: var(--color-cream); font-family: var(--font-serif-tnr); color: var(--color-rose); }
+
+button {
+  cursor: pointer;
+}
