@@ -6,8 +6,8 @@
 @font-face { font-family: 'The Nautigal'; font-weight: 400; font-style: normal; src: url('https://static.figma.com/font/TheNautigal-Regular_1') format('woff2'); }
 
 @theme {
-  --color-cream: #faf3e8;
-  --color-rose: #996247;
+  --color-cream: #183a2a;
+  --color-rose: #e8d5b5;
   --font-serif-tnr: 'Times New Roman', Times, serif;
   --font-script: 'The Nautigal', cursive;
   --font-garamond: 'EB Garamond', serif;
@@ -19,4 +19,21 @@ body { background: var(--color-cream); font-family: var(--font-serif-tnr); color
 
 button {
   cursor: pointer;
+}
+
+h1, h2, h3, h4, p, span, a, button, img:not(.invert), .flower-mask {
+  --prox-int: 0;
+  /* Add filter to transition properties without overriding others if possible, but standard transition is best handled via setting just transition-filter */
+  transition-property: filter, opacity, transform;
+  transition-duration: 0.4s;
+  transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+h1:not(.no-prox), h2:not(.no-prox), h3:not(.no-prox), h4:not(.no-prox), 
+p:not(.no-prox), span:not(.no-prox), a:not(.no-prox), button:not(.no-prox) {
+  filter: brightness(calc(1 + var(--prox-int) * 0.4));
+}
+
+img:not(.invert):not(.no-prox), .flower-mask:not(.no-prox) {
+  filter: brightness(calc(1 + var(--prox-int) * 0.4));
 }

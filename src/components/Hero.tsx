@@ -4,11 +4,19 @@ export default function Hero() {
   return (
     <header className="relative flex w-full flex-col items-center justify-center min-h-screen sm:min-h-[85vh] py-20 sm:py-32 px-4">
       {/* Background Flower Design */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-100 z-0 sm:flex sm:items-center sm:justify-end">
-        <img
-          alt=""
-          src={`${a}/65399.png`}
-          className="absolute -right-[35%] top-[5%] w-[90%] h-[90%] object-contain object-right-top sm:relative sm:right-auto sm:top-auto sm:w-[80%] sm:h-full sm:max-w-[800px] sm:object-right sm:mt-0 md:mt-[80px] lg:mt-[100px] sm:translate-x-[10%] -rotate-[30deg] sm:-rotate-12"
+      <div className="absolute inset-0 pointer-events-none opacity-100 z-0 sm:flex sm:items-center sm:justify-end">
+        <div
+          className="flower-mask absolute -right-[35%] top-[5%] w-[90%] h-[90%] sm:relative sm:right-auto sm:top-auto sm:w-[80%] sm:h-full sm:max-w-[800px] sm:mt-0 md:mt-[80px] lg:mt-[100px] sm:translate-x-[10%] -rotate-[30deg] sm:-rotate-12 bg-rose"
+          style={{
+            WebkitMaskImage: `url(${a}/65399.png)`,
+            WebkitMaskSize: 'contain',
+            WebkitMaskRepeat: 'no-repeat',
+            WebkitMaskPosition: 'right top',
+            maskImage: `url(${a}/65399.png)`,
+            maskSize: 'contain',
+            maskRepeat: 'no-repeat',
+            maskPosition: 'right top',
+          }}
         />
       </div>
 

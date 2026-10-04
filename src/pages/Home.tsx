@@ -19,7 +19,7 @@ export default function Home() {
             <img alt="" src="/assets/97b2f.png" className="mt-[100px] h-[2300px] w-[1177px] max-w-none sm:mt-[200px]" />
             <img alt="" src="/assets/97b2f.png" className="mt-[436px] h-[2300px] w-[1177px] max-w-none -scale-100" />
           </div>
-          <div className="relative flex flex-col gap-20 pt-[100px] sm:pt-[200px]">
+          <div className="relative flex flex-col gap-20 pt-[40px] sm:pt-[200px]">
             <Ceremony />
             <Gallery />
             <Reception hash={hash} />

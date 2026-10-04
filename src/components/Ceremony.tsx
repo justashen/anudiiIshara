@@ -27,11 +27,7 @@ export default function Ceremony() {
         the wedding of our children
       </p>
       <div className="flex flex-col items-center gap-4 text-center">
-        <h3 className="font-garamond text-[40px] leading-[56px] sm:text-[64px] sm:leading-[80px]">Anudi Karunamuni</h3>
-        <span className="text-xs uppercase tracking-[2.4px]">Bride</span>
-        <span className="text-[52px] leading-[78px]">&amp;</span>
-        <h3 className="font-garamond text-[40px] leading-[56px] sm:text-[64px] sm:leading-[80px]">Ishara Udayanga</h3>
-        <span className="text-xs uppercase tracking-[2.4px]">Groom</span>
+        <h3 className="font-garamond text-[40px] leading-[56px] sm:text-[64px] sm:leading-[80px]">Anudi &amp; Ishara</h3>
       </div>
     </section>
   )

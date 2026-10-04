@@ -74,7 +74,7 @@ export default function Reception({ hash }: { hash?: string }) {
 
       <button 
         onClick={() => setIsModalOpen(true)}
-        className="mt-2 cursor-pointer rounded-full bg-rose px-6 py-2 text-base font-bold tracking-[0.8px] text-white transition-opacity hover:opacity-90"
+        className="mt-2 cursor-pointer rounded-full bg-rose px-6 py-2 text-base font-bold tracking-[0.8px] text-cream transition-opacity hover:opacity-90"
       >
         CONFIRM ATTENDANCE
       </button>
