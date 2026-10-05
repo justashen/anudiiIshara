@@ -55,6 +55,17 @@ export default function Home() {
     return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, [isPlaying]);
 
+  useEffect(() => {
+    if (!videoFinished) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [videoFinished]);
+
   return (
     <div className={`relative min-h-screen bg-cream text-rose ${!videoFinished ? 'h-[100dvh] overflow-hidden' : 'overflow-clip'}`}>
       <audio ref={audioRef} src="/Ed Sheeran - Perfect.mp3" loop preload="auto" />

@@ -1,16 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const a = '/assets'
 const ChevL = `${a}/8b149.svg`
 const ChevR = `${a}/2d14c.svg`
 
 const photos = [
-  { src: `/1compressed.webp` },
-  { src: `/2compressed.webp`, position: 'object-top' },
+  { src: `/1compressed.webp`, position: 'object-top' },
+  { src: `/2compressed.webp` },
   { src: `/3compressed.webp` },
-  { src: `/4compressed.webp` },
-  { src: `/5compressed.webp`, position: 'object-top' },
-  { src: `/6compressed.webp` },
+  { src: `/4compressed.webp`, position: 'object-top' },
 ]
 
 function GalleryImage({ p, idx }: { p: typeof photos[0], idx: number }) {
@@ -47,6 +45,9 @@ export default function Gallery() {
     })
   }
 
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
   useEffect(() => {
     if (i === photos.length) {
       const t = setTimeout(() => {
@@ -61,17 +62,28 @@ export default function Gallery() {
   }, [i, transitioning])
 
   useEffect(() => {
-    if (isHovered) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true)
+      },
+      { threshold: 0.3 }
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (isHovered || !isVisible) return
     const timer = setInterval(() => {
       go(1)
     }, 4000)
     return () => clearInterval(timer)
-  }, [isHovered])
+  }, [isHovered, isVisible])
   
   const extendedPhotos = [...photos, photos[0]]
 
   return (
-    <section className="flex w-full flex-col items-center py-10 sm:py-16">
+    <section ref={sectionRef} className="flex w-full flex-col items-center py-10 sm:py-16">
       <h2 className="mb-6 sm:mb-10 text-sm sm:text-base font-medium tracking-[0.1em] text-rose/80 uppercase">Memories</h2>
       <div className="w-full max-w-5xl px-4 sm:px-8 lg:px-12">
         <div 

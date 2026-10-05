@@ -42,32 +42,34 @@ export default function Hero({ introDone, videoFinished, onVideoEnd }: HeroProps
 
 
   return (
-    <header className="relative flex w-full flex-col items-center justify-center h-[100dvh] px-4 overflow-hidden">
+    <header className={`relative flex w-full flex-col items-center justify-center px-4 overflow-hidden transition-[height] duration-1000 ${videoFinished ? 'h-[65dvh] sm:h-[100dvh]' : 'h-[100dvh]'}`}>
       {/* Heaven Flash */}
       <div className={`pointer-events-none fixed inset-0 z-[100] bg-white transition-opacity duration-[1000ms] ease-in-out ${flashWhite ? 'opacity-100' : 'opacity-0'}`} />
 
       {/* Background Video */}
-      <div className={`absolute inset-0 z-0 overflow-hidden bg-cream transition-transform duration-[2000ms] ease-in-out ${zooming || videoFinished ? 'scale-[1.4]' : 'scale-100'}`}>
-        <img 
-          src="/start.jpeg" 
-          alt="" 
-          className="absolute inset-0 h-full w-full object-cover" 
-        />
-        <video 
-          ref={videoRef}
-          src="/video.mp4" 
-          poster="/start.jpeg"
-          muted 
-          playsInline 
-          preload="auto"
-          onLoadedData={() => setVideoLoaded(true)}
-          onTimeUpdate={handleTimeUpdate}
-          onEnded={() => {
-            onVideoEnd();
-            if (videoRef.current) videoRef.current.play().catch(e => console.error(e));
-          }}
-          className={`absolute inset-0 h-full w-full object-cover ${videoFinished ? 'transition-opacity duration-1000' : ''} ${videoLoaded && introDone && !fading ? 'opacity-100' : 'opacity-0'}`}
-        />
+      <div className="absolute inset-0 z-0 overflow-hidden bg-cream">
+        <div className={`absolute inset-0 transition-transform duration-[2000ms] ease-in-out ${zooming || videoFinished ? 'scale-[1.4]' : 'scale-100'}`}>
+          <img 
+            src="/start.jpeg" 
+            alt="" 
+            className={`absolute inset-0 h-full w-full object-cover sm:object-center transition-all duration-1000 ${videoFinished ? 'object-bottom' : 'object-center'}`} 
+          />
+          <video 
+            ref={videoRef}
+            src="/video.mp4" 
+            poster="/start.jpeg"
+            muted 
+            playsInline 
+            preload="auto"
+            onLoadedData={() => setVideoLoaded(true)}
+            onTimeUpdate={handleTimeUpdate}
+            onEnded={() => {
+              onVideoEnd();
+              if (videoRef.current) videoRef.current.play().catch(e => console.error(e));
+            }}
+            className={`absolute inset-0 h-full w-full object-cover sm:object-center transition-all duration-1000 ${videoFinished ? 'object-bottom' : 'object-center'} ${videoFinished ? 'transition-opacity' : ''} ${videoLoaded && introDone && !fading ? 'opacity-100' : 'opacity-0'}`}
+          />
+        </div>
         <div className={`absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/60 to-transparent pointer-events-none z-0 transition-opacity duration-1000 ${!videoFinished ? 'opacity-100' : 'opacity-0'}`} />
         {/* Intro Bottom Gradient (Black) */}
         <div className={`absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-0 transition-opacity duration-1000 ${!videoFinished ? 'opacity-100' : 'opacity-0'}`} />
@@ -76,7 +78,7 @@ export default function Hero({ introDone, videoFinished, onVideoEnd }: HeroProps
       </div>
 
       {/* Text Content */}
-      <div className={`relative z-10 flex flex-col items-center w-full h-[100dvh] px-4 transition-all duration-1000 ${
+      <div className={`relative z-10 flex flex-col items-center w-full h-full px-4 transition-all duration-1000 ${
         !videoFinished ? 'justify-start pt-36 sm:pt-48' : 'justify-end pb-0 sm:pb-2'
       }`}>
         <p className={`uppercase text-center w-auto text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)] transition-all duration-1000 ${
