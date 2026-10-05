@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { API_URL } from '../config'
 
 interface RsvpModalProps {
   isOpen: boolean
@@ -15,7 +16,7 @@ export default function RsvpModal({ isOpen, onClose, hash }: RsvpModalProps) {
 
   useEffect(() => {
     if (isOpen && hash) {
-      fetch(`http://localhost:5000/rsvp/${hash}`)
+      fetch(`${API_URL}/rsvp/${hash}`)
         .then(res => res.json())
         .then(data => {
           if (data && data.name) {
@@ -39,7 +40,7 @@ export default function RsvpModal({ isOpen, onClose, hash }: RsvpModalProps) {
 
     if (hash) {
       try {
-        const res = await fetch(`http://localhost:5000/rsvp/${hash}`, {
+        const res = await fetch(`${API_URL}/rsvp/${hash}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ attending: attendance === 'yes' })

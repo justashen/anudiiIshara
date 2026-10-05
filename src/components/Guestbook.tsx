@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Heading from './Heading'
+import { API_URL } from '../config'
 
 export default function Guestbook({ hash }: { hash?: string }) {
   const [name, setName] = useState('')
@@ -15,7 +16,7 @@ export default function Guestbook({ hash }: { hash?: string }) {
     
     setStatus('loading')
     try {
-      const res = await fetch('http://localhost:5000/wishes', {
+      const res = await fetch(`${API_URL}/wishes`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, message: wish, hash }),

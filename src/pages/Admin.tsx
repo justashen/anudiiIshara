@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { API_URL } from '../config';
 
 type Wish = {
   id: number;
@@ -74,7 +75,7 @@ export default function Admin() {
 
       setIsLoading(true);
       try {
-        const res = await fetch(`http://localhost:5000/wishes?page=${page}&limit=${limit}`, {
+        const res = await fetch(`${API_URL}/wishes?page=${page}&limit=${limit}`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -118,7 +119,7 @@ export default function Admin() {
       if (!token) return;
 
       try {
-        const res = await fetch('http://localhost:5000/participants', {
+        const res = await fetch(`${API_URL}/participants`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (res.ok) {
@@ -148,7 +149,7 @@ export default function Admin() {
     
     const token = localStorage.getItem('adminToken');
     try {
-      const res = await fetch(`http://localhost:5000/wishes/${id}`, {
+      const res = await fetch(`${API_URL}/wishes/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -169,7 +170,7 @@ export default function Admin() {
     
     const token = localStorage.getItem('adminToken');
     try {
-      const res = await fetch('http://localhost:5000/participants', {
+      const res = await fetch(`${API_URL}/participants`, {
         method: 'POST',
         headers: { 
           'Authorization': `Bearer ${token}`,
@@ -181,7 +182,7 @@ export default function Admin() {
       if (res.ok) {
         setNewParticipantName('');
         // Refresh list
-        const resList = await fetch('http://localhost:5000/participants', {
+        const resList = await fetch(`${API_URL}/participants`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (resList.ok) {
@@ -208,7 +209,7 @@ export default function Admin() {
     
     const token = localStorage.getItem('adminToken');
     try {
-      const res = await fetch(`http://localhost:5000/participants/${id}`, {
+      const res = await fetch(`${API_URL}/participants/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
