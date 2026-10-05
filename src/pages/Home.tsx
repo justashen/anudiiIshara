@@ -6,25 +6,52 @@ import Hero from '../components/Hero'
 import Reception from '../components/Reception'
 import Schedule from '../components/Schedule'
 import Venue from '../components/Venue'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Logo from '../components/Logo'
 
 export default function Home() {
   const { hash } = useParams();
   const [introDone, setIntroDone] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const handleOpen = () => {
+    setIntroDone(true);
+    if (audioRef.current) {
+      audioRef.current.play()
+        .then(() => setIsPlaying(true))
+        .catch(e => console.error("Audio play failed:", e));
+    }
+  };
+
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        audioRef.current.play()
+          .then(() => setIsPlaying(true))
+          .catch(e => console.error(e));
+      }
+    }
+  };
 
   return (
     <div className={`relative min-h-screen bg-cream text-rose ${!introDone ? 'h-screen overflow-hidden' : 'overflow-hidden'}`}>
-      {!introDone && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <button 
-            onClick={() => setIntroDone(true)}
-            className="relative z-10 border border-white/60 bg-black/30 px-8 py-4 text-sm sm:text-lg tracking-[4px] uppercase text-white transition-all hover:bg-white/20 hover:scale-105"
-          >
-            Open Invitation
-          </button>
-        </div>
-      )}
+      <audio ref={audioRef} src="/Ed Sheeran - Perfect.mp3" loop preload="auto" />
+      <div 
+        className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 transition-opacity duration-1000 ${
+          introDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
+      >
+        <button 
+          onClick={handleOpen}
+          className={`relative z-10 border border-white/60 bg-black/30 px-8 py-4 text-sm sm:text-lg tracking-[4px] uppercase text-white transition-all hover:bg-white/20 hover:scale-105 ${introDone ? 'scale-95 opacity-0' : 'scale-100 opacity-100'} duration-1000`}
+        >
+          Open Invitation
+        </button>
+      </div>
       <Hero />
       <main className="relative mx-auto flex w-full max-w-[900px] flex-col">
         <div className="relative w-full">
@@ -53,6 +80,20 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      {introDone && (
+        <button 
+          onClick={toggleAudio}
+          className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-black/20 border border-white/30 text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-black/40"
+          aria-label="Toggle audio"
+        >
+          {isPlaying ? (
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+          )}
+        </button>
+      )}
     </div>
   )
 }
