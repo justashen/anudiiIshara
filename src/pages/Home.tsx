@@ -84,7 +84,7 @@ export default function Home() {
       {introDone && (
         <button 
           onClick={toggleAudio}
-          className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-black/20 border border-white/30 text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-black/40"
+          className="fixed top-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-black/20 border border-white/30 text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-black/40"
           aria-label="Toggle audio"
         >
           {isPlaying ? (
