@@ -300,11 +300,11 @@ export default function Admin() {
               Total wishes: <span className="font-bold text-rose">{total}</span>
             </div>
             
-            <div className="overflow-visible rounded-xl border border-rose/20 bg-white/50 shadow-sm backdrop-blur-md mb-6">
+            <div className="overflow-visible rounded-xl border border-rose/10 bg-black/20 shadow-lg backdrop-blur-md mb-6">
               {/* Desktop Table */}
               <div className="hidden md:block">
                 <table className="w-full text-left text-sm">
-                  <thead className="bg-rose/5 uppercase tracking-wider text-rose/70">
+                  <thead className="bg-black/30 uppercase tracking-wider text-rose/70">
                     <tr>
                       <th className="px-6 py-4 font-semibold">ID</th>
                       <th className="px-6 py-4 font-semibold">Name</th>
@@ -313,7 +313,7 @@ export default function Admin() {
                       <th className="px-6 py-4 font-semibold text-center">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-rose/10">
+                  <tbody className="divide-y divide-rose/5">
                     {wishes.length === 0 && !isLoading ? (
                       <tr>
                         <td colSpan={5} className="px-6 py-8 text-center text-rose/50">
@@ -322,7 +322,7 @@ export default function Admin() {
                       </tr>
                     ) : (
                       wishes.map((wish) => (
-                        <tr key={wish.id} className="hover:bg-rose/5">
+                        <tr key={wish.id} className="hover:bg-black/40 transition-colors">
                           <td className="px-6 py-4">{wish.id}</td>
                           <td className="px-6 py-4">
                             <span className="font-bold block">{wish.name}</span>
@@ -378,15 +378,15 @@ export default function Admin() {
               </div>
 
               {/* Mobile Cards */}
-              <div className="block md:hidden divide-y divide-rose/10 bg-white/20">
+              <div className="block md:hidden divide-y divide-rose/5 bg-black/20">
                 {wishes.length === 0 && !isLoading ? (
                   <div className="p-8 text-center text-rose/50 font-medium">No wishes found.</div>
                 ) : (
                   wishes.map((wish) => (
-                    <div key={wish.id} className="group relative p-4 sm:p-5 transition duration-300 hover:bg-white/40">
+                    <div key={wish.id} className="group relative p-4 sm:p-5 transition duration-300 hover:bg-black/40">
                       <div className="flex justify-between items-start">
                         <div className="flex flex-col flex-1 min-w-0 pr-4">
-                          <h3 className="font-serif text-lg font-bold text-gray-900 break-words leading-tight">
+                          <h3 className="font-serif text-lg font-bold text-rose break-words leading-tight">
                             {wish.name}
                             {wish.participant_name && <span className="ml-2 inline-flex items-center rounded-full bg-rose/10 px-2 py-0.5 text-[10px] font-bold text-rose/80 uppercase tracking-wider">Real: {wish.participant_name}</span>}
                           </h3>
@@ -420,8 +420,8 @@ export default function Admin() {
                           )}
                         </div>
                       </div>
-                      <div className="relative mt-4 rounded-2xl bg-white/60 p-4 shadow-sm border border-white/50 backdrop-blur-sm">
-                        <p className="text-sm break-words whitespace-pre-wrap leading-relaxed text-gray-800 font-medium">
+                      <div className="relative mt-4 rounded-2xl bg-black/30 p-4 shadow-inner border border-rose/10 backdrop-blur-sm">
+                        <p className="text-sm break-words whitespace-pre-wrap leading-relaxed text-rose/90 font-medium">
                           {wish.message}
                         </p>
                       </div>
@@ -443,7 +443,7 @@ export default function Admin() {
                 <button 
                   onClick={() => setPage(p => p + 1)}
                   disabled={isLoading}
-                  className="rounded-full bg-rose px-8 py-3 text-sm font-bold tracking-widest text-white shadow-md transition hover:bg-rose/90 hover:shadow-lg active:scale-95 disabled:opacity-50"
+                  className="rounded-full bg-rose px-8 py-3 text-sm font-bold tracking-widest text-cream shadow-md transition hover:bg-rose/90 hover:shadow-lg active:scale-95 disabled:opacity-50"
                 >
                   {isLoading ? 'LOADING...' : 'LOAD MORE'}
                 </button>
@@ -459,12 +459,12 @@ export default function Admin() {
                 value={newParticipantName}
                 onChange={e => setNewParticipantName(e.target.value)}
                 placeholder="Participant Name"
-                className="w-full sm:flex-1 rounded-xl border border-rose/30 bg-white/50 px-4 py-3 placeholder:text-rose/40 focus:border-rose focus:outline-none focus:ring-1 focus:ring-rose"
+                className="w-full sm:flex-1 rounded-xl border border-rose/30 bg-black/20 px-4 py-3 placeholder:text-rose/40 focus:border-rose focus:outline-none focus:ring-1 focus:ring-rose"
                 required
               />
               <button 
                 type="submit"
-                className="w-full sm:w-auto rounded-xl bg-rose px-6 py-3 font-semibold text-white shadow-md hover:bg-rose/90 transition"
+                className="w-full sm:w-auto rounded-xl bg-rose px-6 py-3 font-semibold text-cream shadow-md hover:bg-rose/90 transition"
               >
                 Create Invite Link
               </button>
@@ -487,11 +487,11 @@ export default function Admin() {
               </div>
             </div>
 
-            <div className="overflow-visible rounded-xl border border-rose/20 bg-white/50 shadow-sm backdrop-blur-md mb-6">
+            <div className="overflow-visible rounded-xl border border-rose/10 bg-black/20 shadow-lg backdrop-blur-md mb-6">
               {/* Desktop Table */}
               <div className="hidden md:block">
                 <table className="w-full text-left text-sm">
-                  <thead className="bg-rose/5 uppercase tracking-wider text-rose/70">
+                  <thead className="bg-black/30 uppercase tracking-wider text-rose/70">
                     <tr>
                       <th className="px-6 py-4 font-semibold">Name</th>
                       <th className="px-6 py-4 font-semibold">Status</th>
@@ -499,7 +499,7 @@ export default function Admin() {
                       <th className="px-6 py-4 font-semibold text-center">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-rose/10">
+                  <tbody className="divide-y divide-rose/5">
                     {participants.length === 0 ? (
                       <tr>
                         <td colSpan={4} className="px-6 py-8 text-center text-rose/50">
@@ -508,7 +508,7 @@ export default function Admin() {
                       </tr>
                     ) : (
                       participants.map((p) => (
-                        <tr key={p.id} className="hover:bg-rose/5">
+                        <tr key={p.id} className="hover:bg-black/40 transition-colors">
                           <td className="px-6 py-4 font-bold">{p.name}</td>
                           <td className="px-6 py-4">
                             {p.attending === true && <span className="inline-flex rounded-full bg-green-100 px-2 py-1 text-xs font-semibold text-green-800">Attending</span>}
@@ -563,15 +563,15 @@ export default function Admin() {
               </div>
 
               {/* Mobile Cards */}
-              <div className="block md:hidden divide-y divide-rose/10 bg-white/20">
+              <div className="block md:hidden divide-y divide-rose/5 bg-black/20">
                 {participants.length === 0 ? (
                   <div className="p-8 text-center text-rose/50 font-medium">No participants created yet.</div>
                 ) : (
                   participants.map((p) => (
-                    <div key={p.id} className="group relative p-4 sm:p-5 transition duration-300 hover:bg-white/40">
+                    <div key={p.id} className="group relative p-4 sm:p-5 transition duration-300 hover:bg-black/40">
                       <div className="flex justify-between items-start">
                         <div className="flex flex-col gap-2 flex-1 min-w-0 pr-4">
-                          <h3 className="font-serif text-lg font-bold text-gray-900 truncate">{p.name}</h3>
+                          <h3 className="font-serif text-lg font-bold text-rose truncate">{p.name}</h3>
                           
                           <div className="flex flex-wrap items-center gap-2 mt-1">
                             {p.attending === true && <span className="inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-green-50 px-2.5 py-1 text-xs font-bold text-green-700 shadow-sm"><span className="h-1.5 w-1.5 rounded-full bg-green-500"></span>Attending</span>}
