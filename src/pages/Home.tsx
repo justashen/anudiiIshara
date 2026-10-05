@@ -92,7 +92,11 @@ export default function Home() {
           if (!videoFinished) {
             setVideoFinished(true);
             setTimeout(() => {
-              window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+              if (window.innerWidth >= 640) {
+                window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
             }, 100);
           }
         }} 
