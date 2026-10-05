@@ -12,6 +12,7 @@ import Logo from '../components/Logo'
 export default function Home() {
   const { hash } = useParams();
   const [introDone, setIntroDone] = useState(false);
+  const [videoFinished, setVideoFinished] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -38,21 +39,30 @@ export default function Home() {
   };
 
   return (
-    <div className={`relative min-h-screen bg-cream text-rose ${!introDone ? 'h-screen overflow-hidden' : 'overflow-hidden'}`}>
+    <div className={`relative min-h-screen bg-cream text-rose ${!videoFinished ? 'h-[100dvh] overflow-hidden' : 'overflow-clip'}`}>
       <audio ref={audioRef} src="/Ed Sheeran - Perfect.mp3" loop preload="auto" />
       <div 
-        className={`fixed inset-0 z-50 flex items-center justify-center bg-black/50 transition-opacity duration-1000 ${
+        className={`fixed inset-0 z-50 flex flex-col items-center justify-end pb-24 sm:pb-32 transition-opacity duration-1000 ${
           introDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
       >
         <button 
           onClick={handleOpen}
-          className={`relative z-10 border border-white/60 bg-black/30 px-8 py-4 text-sm sm:text-lg tracking-[4px] uppercase text-white transition-all hover:bg-white/20 hover:scale-105 ${introDone ? 'scale-95 opacity-0' : 'scale-100 opacity-100'} duration-1000`}
+          className={`relative z-10 rounded-full bg-white/95 backdrop-blur-md px-10 py-4 text-[10px] sm:text-xs font-medium tracking-[2px] sm:tracking-[4px] uppercase text-black/90 shadow-[0_4px_20px_rgba(255,255,255,0.2)] border border-white/50 transition-all hover:bg-white hover:shadow-[0_4px_30px_rgba(255,255,255,0.4)] ${introDone ? 'scale-95 opacity-0' : 'scale-100 opacity-100'} duration-1000`}
         >
           Open Invitation
         </button>
       </div>
-      <Hero />
+      <Hero 
+        introDone={introDone} 
+        videoFinished={videoFinished} 
+        onVideoEnd={() => {
+          setVideoFinished(true);
+          setTimeout(() => {
+            window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+          }, 100);
+        }} 
+      />
       <main className="relative mx-auto flex w-full max-w-[900px] flex-col">
         <div className="relative w-full">
           <div className="pointer-events-none absolute left-1/2 top-0 flex -translate-x-1/2 flex-col items-center opacity-10">
@@ -81,7 +91,7 @@ export default function Home() {
         </div>
       </main>
 
-      {introDone && (
+      {videoFinished && (
         <button 
           onClick={toggleAudio}
           className="fixed top-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-black/20 border border-white/30 text-white backdrop-blur-md transition-all hover:scale-105 hover:bg-black/40"

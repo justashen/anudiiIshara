@@ -66,10 +66,10 @@ export default function RsvpModal({ isOpen, onClose, hash }: RsvpModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
-      <div className="relative w-full max-w-[420px] rounded-2xl bg-white p-6 font-sans-google text-[#2b2b2b] shadow-2xl sm:p-8">
+      <div className="relative w-full max-w-[420px] rounded-2xl bg-cream p-6 font-sans-google text-rose shadow-2xl border border-rose/20 sm:p-8">
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 flex size-7 items-center justify-center rounded-full bg-[#f1f1f1] text-[#717171] transition-colors hover:bg-[#e5e5e5]"
+          className="absolute right-4 top-4 flex size-7 items-center justify-center rounded-full bg-rose/10 text-rose/60 transition-colors hover:bg-rose/20 hover:text-rose"
         >
           <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="M18 6L6 18M6 6l12 12" />
@@ -78,34 +78,34 @@ export default function RsvpModal({ isOpen, onClose, hash }: RsvpModalProps) {
         
         {submitted ? (
           <div className="text-center py-6">
-            <h2 className="mb-4 text-2xl font-bold text-[#1f2937]">Thank you!</h2>
-            <p className="text-[15px] text-[#6b7280]">
+            <h2 className="mb-4 text-2xl font-bold text-rose">Thank you!</h2>
+            <p className="text-[15px] text-rose/80">
               {attendance === 'yes' 
                 ? "We can't wait to celebrate with you!" 
                 : "We will miss you!"}
             </p>
             <button 
               onClick={onClose}
-              className="mt-8 w-full rounded-xl bg-[#996247] py-3.5 text-[15px] font-bold text-white transition-opacity hover:opacity-90"
+              className="mt-8 w-full rounded-xl bg-rose py-3.5 text-[15px] font-bold text-cream transition-opacity hover:opacity-90"
             >
               Close
             </button>
           </div>
         ) : (
           <>
-            <h2 className="mb-2 text-xl font-bold text-[#1f2937]">Confirm your attendance</h2>
-            <p className="mb-6 text-[13px] leading-relaxed text-[#6b7280]">
+            <h2 className="mb-2 text-xl font-bold text-rose">Confirm your attendance</h2>
+            <p className="mb-6 text-[13px] leading-relaxed text-rose/70">
               Your presence would be an honor. Please RSVP so we can prepare the warmest welcome for you.
             </p>
 
-            {error && <p className="mb-4 text-sm text-red-500">{error}</p>}
+            {error && <p className="mb-4 text-sm text-red-400">{error}</p>}
 
             <div className="mb-8">
-              <label className="mb-2 block text-[13px] font-semibold text-[#374151]">Will you attend?</label>
+              <label className="mb-2 block text-[13px] font-semibold text-rose/90">Will you attend?</label>
               <div className="flex flex-col gap-3">
                 <label
                   className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 transition-colors ${
-                    attendance === 'yes' ? 'border-[#996247] bg-[#996247]/5' : 'border-[#e5e7eb] hover:bg-gray-50'
+                    attendance === 'yes' ? 'border-rose bg-rose/10' : 'border-rose/20 hover:bg-rose/5'
                   }`}
                 >
                   <input
@@ -117,7 +117,7 @@ export default function RsvpModal({ isOpen, onClose, hash }: RsvpModalProps) {
                   />
                   <div
                     className={`flex size-6 items-center justify-center rounded-full transition-colors ${
-                      attendance === 'yes' ? 'bg-[#996247] text-white' : 'bg-[#f3f4f6] text-[#9ca3af]'
+                      attendance === 'yes' ? 'bg-rose text-cream' : 'border border-rose/30 bg-transparent text-rose/30'
                     }`}
                   >
                     <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -129,7 +129,7 @@ export default function RsvpModal({ isOpen, onClose, hash }: RsvpModalProps) {
 
                 <label
                   className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 transition-colors ${
-                    attendance === 'no' ? 'border-[#996247] bg-[#996247]/5' : 'border-[#e5e7eb] hover:bg-gray-50'
+                    attendance === 'no' ? 'border-rose bg-rose/10' : 'border-rose/20 hover:bg-rose/5'
                   }`}
                 >
                   <input
@@ -141,7 +141,7 @@ export default function RsvpModal({ isOpen, onClose, hash }: RsvpModalProps) {
                   />
                   <div
                     className={`flex size-6 items-center justify-center rounded-full transition-colors ${
-                      attendance === 'no' ? 'bg-[#996247] text-white' : 'bg-[#f3f4f6] text-[#9ca3af]'
+                      attendance === 'no' ? 'bg-rose text-cream' : 'border border-rose/30 bg-transparent text-rose/30'
                     }`}
                   >
                     <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -156,7 +156,7 @@ export default function RsvpModal({ isOpen, onClose, hash }: RsvpModalProps) {
             <button 
               onClick={handleConfirm}
               disabled={isSubmitting}
-              className="w-full rounded-xl bg-[#996247] py-3.5 text-[15px] font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+              className="w-full rounded-xl bg-rose py-3.5 text-[15px] font-bold text-cream transition-opacity hover:opacity-90 disabled:opacity-50"
             >
               {isSubmitting ? 'Confirming...' : 'Confirm'}
             </button>
