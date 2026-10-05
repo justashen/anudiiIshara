@@ -37,10 +37,16 @@ react(),
       host: process.env.FIGMA_DEV_SERVER_HOST || '0.0.0.0',
       port: parseInt(process.env.PORT || '8443'),
       strictPort: true,
+      proxy: {
+        '/login': 'http://127.0.0.1:5000',
+        '/wishes': 'http://127.0.0.1:5000',
+        '/participants': 'http://127.0.0.1:5000',
+        '/rsvp': 'http://127.0.0.1:5000',
+      },
       watch: {
         ignored: [
           '**/.figma/**',
-],
+        ],
       },
     },
     preview: {
