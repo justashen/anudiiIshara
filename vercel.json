@@ -1,5 +1,9 @@
 {
   "rewrites": [
+    { "source": "/login", "destination": "/api/index.js" },
+    { "source": "/wishes(.*)", "destination": "/api/index.js" },
+    { "source": "/participants(.*)", "destination": "/api/index.js" },
+    { "source": "/rsvp(.*)", "destination": "/api/index.js" },
     {
       "source": "/(.*)",
       "destination": "/index.html"

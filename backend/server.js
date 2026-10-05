@@ -238,4 +238,8 @@ app.post('/rsvp/:hash', async (req, res) => {
 });
 
 const PORT = process.env.API_PORT || 5000;
-app.listen(PORT, () => console.log(`🔐 Backend listening on http://localhost:${PORT}`));
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => console.log(`🔐 Backend listening on http://localhost:${PORT}`));
+}
+
+export default app;
