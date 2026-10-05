@@ -22,7 +22,7 @@ function GalleryImage({ p, idx }: { p: typeof photos[0], idx: number }) {
       <img
         alt={`Wedding photo ${idx + 1}`}
         src={p.src}
-        loading={idx === 0 ? "eager" : "lazy"}
+        loading="eager"
         decoding="async"
         onLoad={() => setLoaded(true)}
         className={`h-full w-full object-cover transition-opacity duration-700 ${p.position || 'object-center'} ${loaded ? 'opacity-100' : 'opacity-0'}`}
