@@ -37,3 +37,12 @@ p:not(.no-prox), span:not(.no-prox), a:not(.no-prox), button:not(.no-prox) {
 img:not(.invert):not(.no-prox), .flower-mask:not(.no-prox) {
   filter: brightness(calc(1 + var(--prox-int) * 0.4));
 }
+
+/* Fix browser autofill background on inputs to match glassmorphism */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: white !important;
+}
