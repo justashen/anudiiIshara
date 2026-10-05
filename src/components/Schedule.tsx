@@ -2,7 +2,6 @@ import Heading from './Heading'
 
 const items = [
   ['5:45 PM', 'Poruwa Ceremony'],
-  ['6:40 PM', 'Registration'],
   ['8:30 PM', 'Dinner'],
   ['10:00 PM', 'Dancing Floor'],
   ['11:00 PM', 'Going Away'],

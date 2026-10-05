@@ -51,7 +51,7 @@ export default function Reception({ hash }: { hash?: string }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   return (
     <section className="flex flex-col items-center gap-5 px-6">
-      <Heading>THE WEDDING WILL TAKE PLACE AT:</Heading>
+      <Heading className="!text-[16px] sm:!text-[18px]">THE WEDDING WILL TAKE PLACE AT:</Heading>
       <p className="text-center text-[18px] uppercase tracking-[1.3px] sm:text-[26px] sm:leading-[39px]">
         Vinrich Lake Resort, Piliyandala
       </p>

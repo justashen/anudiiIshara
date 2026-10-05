@@ -8,7 +8,7 @@ const parents = [
 export default function Ceremony() {
   return (
     <section className="flex flex-col items-center gap-16 px-6 sm:gap-20">
-      <Heading>Ceremony Info</Heading>
+      <Heading>THE WEDDING of</Heading>
       <div className="flex w-full max-w-[700px] justify-center gap-3 text-center">
         {parents.map((p) => (
           <div key={p[0]} className="flex flex-1 flex-col gap-[5px]">
