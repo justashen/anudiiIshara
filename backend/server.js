@@ -19,12 +19,10 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 if (!process.env.DATABASE_URL) {
   console.error("FATAL ERROR: DATABASE_URL is not defined in .env");
-  process.exit(1);
 }
 
 if (!JWT_SECRET) {
   console.error("FATAL ERROR: JWT_SECRET is not defined in .env");
-  process.exit(1);
 }
 
 const pool = new Pool({
