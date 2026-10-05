@@ -10,6 +10,9 @@ interface HeroProps {
 
 export default function Hero({ introDone, videoFinished, onVideoEnd }: HeroProps) {
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [fading, setFading] = useState(false);
+  const [zooming, setZooming] = useState(false);
+  const [flashWhite, setFlashWhite] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -18,11 +21,33 @@ export default function Hero({ introDone, videoFinished, onVideoEnd }: HeroProps
     }
   }, [introDone]);
 
+  const handleTimeUpdate = () => {
+    if (!videoRef.current) return;
+    const { currentTime, duration } = videoRef.current;
+    
+    if (!videoFinished && duration) {
+      if (duration - currentTime < 1.2) setZooming(true);
+      if (duration - currentTime < 0.5) setFlashWhite(true);
+    }
+    
+    if (videoFinished) {
+      if (flashWhite) setFlashWhite(false);
+      if (duration && duration - currentTime < 1.5) {
+        setFading(true);
+      } else if (currentTime < 1.5) {
+        setFading(false);
+      }
+    }
+  };
+
 
   return (
     <header className="relative flex w-full flex-col items-center justify-center h-[100dvh] px-4 overflow-hidden">
+      {/* Heaven Flash */}
+      <div className={`pointer-events-none fixed inset-0 z-[100] bg-white transition-opacity duration-[1000ms] ease-in-out ${flashWhite ? 'opacity-100' : 'opacity-0'}`} />
+
       {/* Background Video */}
-      <div className={`absolute inset-0 z-0 overflow-hidden bg-cream transition-transform duration-[3000ms] ease-in-out ${videoFinished ? 'scale-110' : 'scale-100'}`}>
+      <div className={`absolute inset-0 z-0 overflow-hidden bg-cream transition-transform duration-[2000ms] ease-in-out ${zooming || videoFinished ? 'scale-[1.4]' : 'scale-100'}`}>
         <img 
           src="/start.jpeg" 
           alt="" 
@@ -36,11 +61,12 @@ export default function Hero({ introDone, videoFinished, onVideoEnd }: HeroProps
           playsInline 
           preload="auto"
           onLoadedData={() => setVideoLoaded(true)}
+          onTimeUpdate={handleTimeUpdate}
           onEnded={() => {
             onVideoEnd();
             if (videoRef.current) videoRef.current.play().catch(e => console.error(e));
           }}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${videoLoaded && introDone ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute inset-0 h-full w-full object-cover ${videoFinished ? 'transition-opacity duration-1000' : ''} ${videoLoaded && introDone && !fading ? 'opacity-100' : 'opacity-0'}`}
         />
         <div className={`absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black/60 to-transparent pointer-events-none z-0 transition-opacity duration-1000 ${!videoFinished ? 'opacity-100' : 'opacity-0'}`} />
         {/* Intro Bottom Gradient (Black) */}
@@ -51,14 +77,14 @@ export default function Hero({ introDone, videoFinished, onVideoEnd }: HeroProps
 
       {/* Text Content */}
       <div className={`relative z-10 flex flex-col items-center w-full h-[100dvh] px-4 transition-all duration-1000 ${
-        !videoFinished ? 'justify-start pt-36 sm:pt-48' : 'justify-end pb-4 sm:pb-8'
+        !videoFinished ? 'justify-start pt-36 sm:pt-48' : 'justify-end pb-0 sm:pb-2'
       }`}>
         <p className={`uppercase text-center w-auto text-white drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)] transition-all duration-1000 ${
           !videoFinished 
             ? 'opacity-95 font-light tracking-[4px] sm:tracking-[8px] text-[10px] sm:text-[14px] mb-4 sm:mb-8' 
-            : 'opacity-0 h-0 m-0 p-0 text-[0px]'
+            : 'opacity-95 font-medium tracking-[2px] sm:tracking-[4px] text-[12px] sm:text-[18px] mb-2 sm:mb-4'
         }`}>
-          Wedding Invitation
+          {!videoFinished ? 'Wedding Invitation' : 'The wedding of'}
         </p>
 
         <div className="flex flex-row items-center justify-center font-script text-white whitespace-nowrap drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">

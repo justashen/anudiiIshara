@@ -6,7 +6,7 @@ import Hero from '../components/Hero'
 import Reception from '../components/Reception'
 import Schedule from '../components/Schedule'
 import Venue from '../components/Venue'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Logo from '../components/Logo'
 
 export default function Home() {
@@ -38,29 +38,52 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (isPlaying && audioRef.current) {
+          audioRef.current.pause();
+        }
+      } else {
+        if (isPlaying && audioRef.current) {
+          audioRef.current.play().catch(e => console.error("Resume failed:", e));
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [isPlaying]);
+
   return (
     <div className={`relative min-h-screen bg-cream text-rose ${!videoFinished ? 'h-[100dvh] overflow-hidden' : 'overflow-clip'}`}>
       <audio ref={audioRef} src="/Ed Sheeran - Perfect.mp3" loop preload="auto" />
       <div 
         className={`fixed inset-0 z-50 flex flex-col items-center justify-end pb-24 sm:pb-32 transition-opacity duration-1000 ${
-          introDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          videoFinished ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
       >
         <button 
-          onClick={handleOpen}
-          className={`relative z-10 rounded-full bg-white/95 backdrop-blur-md px-10 py-4 text-[10px] sm:text-xs font-medium tracking-[2px] sm:tracking-[4px] uppercase text-black/90 shadow-[0_4px_20px_rgba(255,255,255,0.2)] border border-white/50 transition-all hover:bg-white hover:shadow-[0_4px_30px_rgba(255,255,255,0.4)] ${introDone ? 'scale-95 opacity-0' : 'scale-100 opacity-100'} duration-1000`}
+          onClick={!introDone ? handleOpen : undefined}
+          className={`relative z-10 flex items-center justify-center rounded-full backdrop-blur-md px-10 py-4 text-[10px] sm:text-xs font-medium tracking-[2px] sm:tracking-[4px] uppercase transition-all duration-1000 ${
+            !introDone 
+              ? 'bg-white/95 text-black/90 shadow-[0_4px_20px_rgba(255,255,255,0.2)] border border-white/50 hover:bg-white hover:shadow-[0_4px_30px_rgba(255,255,255,0.4)] cursor-pointer scale-100' 
+              : 'bg-black/30 text-white/90 border border-white/20 cursor-default scale-95'
+          }`}
         >
-          Open Invitation
+          {!introDone ? 'Open Invitation' : 'Playing...'}
         </button>
       </div>
       <Hero 
         introDone={introDone} 
         videoFinished={videoFinished} 
         onVideoEnd={() => {
-          setVideoFinished(true);
-          setTimeout(() => {
-            window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
-          }, 100);
+          if (!videoFinished) {
+            setVideoFinished(true);
+            setTimeout(() => {
+              window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+            }, 100);
+          }
         }} 
       />
       <main className="relative mx-auto flex w-full max-w-[900px] flex-col">
@@ -69,7 +92,7 @@ export default function Home() {
             <img alt="" src="/assets/97b2f.png" className="mt-[100px] h-[2300px] w-[1177px] max-w-none sm:mt-[200px]" />
             <img alt="" src="/assets/97b2f.png" className="mt-[436px] h-[2300px] w-[1177px] max-w-none -scale-100" />
           </div>
-          <div className="relative flex flex-col gap-20 pt-[40px] sm:pt-[200px]">
+          <div className="relative flex flex-col gap-20 pt-4 sm:pt-8">
             <Ceremony />
             <Gallery />
             <Reception hash={hash} />
