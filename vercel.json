@@ -4,6 +4,7 @@
     { "source": "/wishes(.*)", "destination": "/api/index.js" },
     { "source": "/participants(.*)", "destination": "/api/index.js" },
     { "source": "/rsvp(.*)", "destination": "/api/index.js" },
+    { "source": "/hearts(.*)", "destination": "/api/index.js" },
     {
       "source": "/(.*)",
       "destination": "/index.html"
