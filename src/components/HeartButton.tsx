@@ -23,13 +23,13 @@ export default function HeartButton() {
       .then(data => setCount(prev => Math.max(prev, data.count)))
       .catch(console.error);
       
-    // Poll for updates from other users every 5 seconds
+    // Poll for updates from other users every 30 seconds to save Vercel free plan limits
     const syncInterval = setInterval(() => {
       fetch(`${API_URL}/hearts`)
         .then(res => res.json())
         .then(data => setCount(prev => Math.max(prev, data.count)))
         .catch(console.error);
-    }, 5000);
+    }, 30000);
     
     return () => clearInterval(syncInterval);
   }, []);
