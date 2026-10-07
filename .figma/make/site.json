@@ -5,7 +5,7 @@
     "image": "/og.png"
   },
   "robots": {
-    "index": false
+    "index": true
   },
   "icons": {
     "icon": "https://img.icons8.com/color/48/hearts.png"
