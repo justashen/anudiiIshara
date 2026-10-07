@@ -17,10 +17,21 @@ export default function HeartButton() {
   const heartIdCounter = useRef(0);
   
   useEffect(() => {
+    // Initial fetch
     fetch(`${API_URL}/hearts`)
       .then(res => res.json())
-      .then(data => setCount(data.count))
+      .then(data => setCount(prev => Math.max(prev, data.count)))
       .catch(console.error);
+      
+    // Poll for updates from other users every 5 seconds
+    const syncInterval = setInterval(() => {
+      fetch(`${API_URL}/hearts`)
+        .then(res => res.json())
+        .then(data => setCount(prev => Math.max(prev, data.count)))
+        .catch(console.error);
+    }, 5000);
+    
+    return () => clearInterval(syncInterval);
   }, []);
 
   useEffect(() => {
@@ -33,7 +44,13 @@ export default function HeartButton() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ clicks: clicksToSend })
-        }).catch(console.error);
+        })
+        .then(res => res.json())
+        .then(data => {
+           // Ensure local count matches the true global count
+           setCount(prev => Math.max(prev, data.count));
+        })
+        .catch(console.error);
       }
     }, 2000);
     return () => clearInterval(interval);
