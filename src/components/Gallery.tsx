@@ -5,10 +5,10 @@ const ChevL = `${a}/8b149.svg`
 const ChevR = `${a}/2d14c.svg`
 
 const photos = [
-  { src: `/1compressed.webp`, position: 'object-top' },
-  { src: `/2compressed.webp` },
-  { src: `/3compressed.webp` },
-  { src: `/4compressed.webp`, position: 'object-top' },
+  { src: `/1.jpeg`, position: 'object-top' },
+  { src: `/2.jpeg` },
+  { src: `/3.jpeg` },
+  { src: `/4.jpeg`, position: 'object-top' },
 ]
 
 function GalleryImage({ p, idx }: { p: typeof photos[0], idx: number }) {

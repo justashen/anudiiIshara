@@ -58,9 +58,25 @@ const pool = new Pool({
         name TEXT,
         hash TEXT UNIQUE,
         attending BOOLEAN DEFAULT NULL,
+        party TEXT DEFAULT 'Uncategorised',
         created_at TIMESTAMP
       );
     `);
+
+    // Add column if it doesn't exist (migration)
+    await pool.query(`ALTER TABLE participants ADD COLUMN IF NOT EXISTS party TEXT DEFAULT 'Uncategorised';`).catch(() => {});
+
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS stats (
+        id SERIAL PRIMARY KEY,
+        hearts_count INTEGER DEFAULT 0
+      );
+    `);
+    
+    const statsResult = await pool.query('SELECT * FROM stats WHERE id = 1');
+    if (statsResult.rows.length === 0) {
+      await pool.query('INSERT INTO stats (id, hearts_count) VALUES (1, 0)');
+    }
 
     const email = process.env.ADMIN_EMAIL;
     const plainPwd = process.env.ADMIN_PASSWORD;
@@ -181,14 +197,15 @@ app.delete('/wishes/:id', authMiddleware, async (req, res) => {
 // --- PARTICIPANTS / RSVP ROUTES ---
 
 app.post('/participants', authMiddleware, async (req, res) => {
-  const { name } = req.body;
+  const { name, party } = req.body;
   if (!name) return res.status(400).json({ error: 'Name is required' });
   
   const hash = crypto.randomBytes(6).toString('hex'); // e.g. 12 chars
+  const p = party || 'Uncategorised';
   try {
     await pool.query(
-      'INSERT INTO participants (name, hash, created_at) VALUES ($1, $2, $3)', 
-      [name, hash, new Date()]
+      'INSERT INTO participants (name, hash, party, created_at) VALUES ($1, $2, $3, $4)', 
+      [name, hash, p, new Date()]
     );
     res.json({ success: true, hash });
   } catch (err) {
@@ -215,6 +232,20 @@ app.delete('/participants/:id', authMiddleware, async (req, res) => {
   }
 });
 
+app.put('/participants/:id', authMiddleware, async (req, res) => {
+  const { name, party } = req.body;
+  const { id } = req.params;
+  if (!name) return res.status(400).json({ error: 'Name is required' });
+  
+  const p = party || 'Uncategorised';
+  try {
+    await pool.query('UPDATE participants SET name = $1, party = $2 WHERE id = $3', [name, p, id]);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
 app.get('/rsvp/:hash', async (req, res) => {
   try {
     const result = await pool.query('SELECT name, attending FROM participants WHERE hash = $1', [req.params.hash]);
@@ -230,6 +261,28 @@ app.post('/rsvp/:hash', async (req, res) => {
   try {
     await pool.query('UPDATE participants SET attending = $1 WHERE hash = $2', [attending, req.params.hash]);
     res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+app.get('/hearts', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT hearts_count FROM stats WHERE id = 1');
+    if (result.rows.length === 0) return res.json({ count: 0 });
+    res.json({ count: result.rows[0].hearts_count });
+  } catch (err) {
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+app.post('/hearts', async (req, res) => {
+  const { clicks } = req.body;
+  const numClicks = parseInt(clicks) || 1;
+  try {
+    const result = await pool.query('UPDATE stats SET hearts_count = hearts_count + $1 WHERE id = 1 RETURNING hearts_count', [numClicks]);
+    if (result.rows.length === 0) return res.json({ count: 0 });
+    res.json({ count: result.rows[0].hearts_count });
   } catch (err) {
     res.status(500).json({ error: 'Database error' });
   }

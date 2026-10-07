@@ -5,6 +5,7 @@ import Guestbook from '../components/Guestbook'
 import Hero from '../components/Hero'
 import Reception from '../components/Reception'
 import Schedule from '../components/Schedule'
+import HeartButton from '../components/HeartButton'
 import Venue from '../components/Venue'
 import { useState, useRef, useEffect } from 'react'
 import Logo from '../components/Logo'
@@ -113,6 +114,7 @@ export default function Home() {
             <Reception hash={hash} />
             <Venue />
             <Schedule />
+            <HeartButton />
             <Guestbook hash={hash} />
           </div>
           <footer className="relative px-10 pb-20 pt-20 text-center text-lg">

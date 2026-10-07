@@ -46,3 +46,28 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   -webkit-text-fill-color: white !important;
 }
+
+@keyframes float-up {
+  0% { 
+    transform: translateY(0) scale(1) rotate(0deg); 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translateY(-200px) scale(1.5) rotate(45deg); 
+    opacity: 0; 
+  }
+}
+.animate-float-up {
+  animation: float-up 2s ease-out forwards;
+}
+
+@keyframes float-up-explosion {
+  0% { 
+    transform: translateY(0) scale(1) rotate(0deg); 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translateY(-120vh) scale(1.5) rotate(45deg); 
+    opacity: 0; 
+  }
+}

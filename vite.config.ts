@@ -42,6 +42,7 @@ react(),
         '/wishes': 'http://127.0.0.1:5000',
         '/participants': 'http://127.0.0.1:5000',
         '/rsvp': 'http://127.0.0.1:5000',
+        '/hearts': 'http://127.0.0.1:5000',
       },
       watch: {
         ignored: [

@@ -1,11 +1,14 @@
 {
-  "title": "Anudi & Ishara Wedding",
-  "description": "Wedding RSVP and Information site for Anudi & Ishara.",
+  "title": "Anudi & Ishara's Wedding",
+  "description": "You are joyfully invited to celebrate the marriage of Anudi & Ishara! Join us in making memories that will last a lifetime.",
+  "openGraph": {
+    "image": "/og.png"
+  },
   "robots": {
     "index": false
   },
   "icons": {
-    "icon": "/favicon.ico"
+    "icon": "https://img.icons8.com/color/48/hearts.png"
   },
   "accessibility": {
     "addBypassLinks": false,
